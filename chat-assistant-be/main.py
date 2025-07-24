@@ -1,39 +1,26 @@
-import openai
-from dotenv import find_dotenv, load_dotenv
+from openai import OpenAI
+from dotenv import load_dotenv
 import os
 
+# 1) Carrega a tua chave
 load_dotenv()
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+api_key = os.environ["OPENAI_API_KEY"]
 
+# 2) Instancia o cliente
+client = OpenAI(api_key=api_key)
 
-client = openai.OpenAI()
-model = "gpt-4o"
-
-# ==  Create our Assistant (Uncomment this to create your assistant) ==
-personal_trainer_assis = client.assistants.create(
-    name="Personal Trainer",
-    instructions="""You are the best personal trainer and nutritionist who knows how to get clients to build lean muscles.\n
-      You've trained high-caliber athletes and movie stars. """,
-     model=model,
+# 3) Chama a Responses API
+response = client.responses.create(
+    model="gpt-3.5-turbo",
+    instructions=(
+        "Allways greet me with 'Hello, sir Guilherme!' and then answer my question. "
+        "You are the best personal trainer and nutritionist who knows "
+        "how to get clients to build lean muscles. "
+        "You've trained high‑caliber athletes and movie stars."
+        
+    ),
+    input="How many reps should I do for building muscle? ",
 )
 
-asistant_id = personal_trainer_assis.id
-print(asistant_id)
-
-
-# Thread
-
-thread = client.threads.create(
-    messages=[
-        {
-            "role": "user",
-            "content": "What is the best way to build lean muscles?",
-            
-        }
-    ]
-)
-
-thread_id = thread.id
-print(thread_id)
-
-# Run
+# 4) Imprime a resposta
+print(response.output_text)
