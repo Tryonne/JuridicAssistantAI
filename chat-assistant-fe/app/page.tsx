@@ -39,18 +39,25 @@ const models = [
   { id: 'mistral-7b', name: 'Mistral 7B', provider: 'mistral.ai' },
 ];
 
+type Citation = {
+  file_name: string;
+  page?: number;
+  quote: string;
+};
+
+
 type Message = {
   from: 'user' | 'assistant';
   content: string;
   avatar: string;
   name: string;
+  citations?: Citation[]; // para adicionar citações opcionais (?)
 };
 
 export default function Page() {
   const [text, setText] = useState<string>('');
   const [model, setModel] = useState<string>(models[0].id);
-  const [status, setStatus] =
-    useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
+  const [status, setStatus] = useState<'submitted' | 'streaming' | 'ready' | 'error'>('ready');
   const [messages, setMessages] = useState<Message[]>([
     {
       from: 'assistant',
@@ -149,6 +156,7 @@ export default function Page() {
         content: data.answer || 'Sem resposta.',
         avatar: 'https://github.com/openai.png',
         name: 'OpenAI',
+        citations: data.citations || [], // <-- INCLUÍDO
       };
   
       setMessages((prev) => [...prev, botMessage]);
@@ -181,6 +189,8 @@ export default function Page() {
         <AIConversationScrollButton />
       </AIConversation>
 
+      
+
       {/* Input fixo em baixo */}
       <AIInput onSubmit={handleSubmit}>
         <AIInputTextarea
@@ -209,7 +219,7 @@ export default function Page() {
                   <AIInputModelSelectItem key={model.id} value={model.id}>
                     <img
                       alt={model.provider}
-                      className="inline-flex size-4"
+                      className="flex items-center gap-2 min-w-[50px]"
                       src={`https://img.logo.dev/${model.provider}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}`}
                       width={16}
                       height={16}

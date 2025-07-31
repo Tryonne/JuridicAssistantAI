@@ -114,7 +114,37 @@ export const askAssistant = async (req: Request, res: Response) => {
     if (runStatus === "completed") {
       const msgs = await assistantsClient.beta.threads.messages.list(thread.id);
       const assistantMessage = msgs.data.reverse().find(m => m.role === "assistant");
+
+      // log para debbug 
+      console.log(JSON.stringify(assistantMessage, null, 2));
+
       let answer = "Sem resposta.";
+
+      let citations: any[] = [];
+
+      if (assistantMessage && Array.isArray(assistantMessage.content)) {
+        const texts = assistantMessage.content
+          .filter((c: any) => c.type === "text" && c.text && c.text.value)
+          .map((c: any) => c.text.value);
+        if (texts.length > 0) {
+          answer = texts.join('\n');
+        }
+        // para extrair as citações/anotations, se houver
+
+        assistantMessage?.content.forEach((c: any) => {
+          if (Array.isArray(c.annotations)) {
+            c.annotations.forEach((annotation: any) => {
+              if (annotation.type === "file_citation") {
+                citations.push(annotation.file_citation);
+              }
+            });
+          }
+       
+        }
+        );
+
+      }
+
       if (assistantMessage && Array.isArray(assistantMessage.content)) {
         const texts = assistantMessage.content
           .filter((c: any) => c.type === "text" && c.text && c.text.value)
@@ -123,16 +153,21 @@ export const askAssistant = async (req: Request, res: Response) => {
           answer = texts.join('\n');
         }
       }
-      res.json({ answer });
+      res.json({ answer, citations });
     } else {
       res.status(500).json({ error: "Assistant não respondeu a tempo." });
     }
+
+   
+
 
 
 
     } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
+
+  
 
 
 };
