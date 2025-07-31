@@ -60,6 +60,7 @@ export default function Page() {
     },
   ]);
 
+  /*
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     if (!text) return;
@@ -75,23 +76,96 @@ export default function Page() {
     setText('');
     setStatus('submitted');
 
-    // Simular resposta do bot
-    setTimeout(() => {
-      setStatus('streaming');
+    // substituido: Simular resposta do bot
+    // setTimeout(() => {
+    //   setStatus('streaming');
+
+    // Chamada real para o backend para enviar a mensagem do usuário e receber a resposta do assistente
+    fetch('http://localhost:3001/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const botMessage: Message = {
+          from: 'assistant',
+          content: data.answer || 'Sem resposta do assistente.',
+          avatar: 'https://github.com/openai.png',
+          name: 'OpenAI',
+        };
+        setMessages((prev) => [...prev, botMessage]);
+        setStatus('ready');
+      })
+      .catch(() => {
+        setStatus('error');
+      });
     }, 200);
 
-    setTimeout(() => {
-      const botMessage: Message = {
-        from: 'assistant',
-        content: `${tokens.join('')}`,
-        avatar: 'https://github.com/openai.png',
-        name: 'OpenAI',
+    // Removido código duplicado que simulava resposta do bot
+
+
       };
       setMessages((prev) => [...prev, botMessage]);
       setStatus('ready');
     }, 100);
   };
 
+  */
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
+    event.preventDefault();
+    if (!text) return;
+  
+    const userMessage: Message = {
+      from: 'user',
+      content: text,
+      avatar: 'https://github.com/shadcn.png',
+      name: 'Tu',
+    };
+  
+    setMessages((prev) => [...prev, userMessage]);
+    setText('');
+    setStatus('submitted');
+
+
+    
+  
+    try {
+      // Faz o POST para o backend
+      const response = await fetch('http://localhost:3000/assistant/ask', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: text }),
+      });
+  
+      if (!response.ok) throw new Error('Erro na resposta do servidor');
+  
+      const data = await response.json();
+      
+      const botMessage: Message = {
+        from: 'assistant',
+        content: data.answer || 'Sem resposta.',
+        avatar: 'https://github.com/openai.png',
+        name: 'OpenAI',
+      };
+  
+      setMessages((prev) => [...prev, botMessage]);
+      setStatus('ready');
+    } catch (error) {
+      setStatus('error');
+      setMessages((prev) => [
+        ...prev,
+        {
+          from: 'assistant',
+          content: 'Erro ao comunicar com o backend!!!',
+          avatar: 'https://github.com/openai.png',
+          name: 'OpenAI',
+        },
+      ]);
+    }
+  };
   
  
   

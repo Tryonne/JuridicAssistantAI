@@ -1,9 +1,14 @@
 import express from "express";
 import assistantRoutes from "./routes/assistant";
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 
 const app = express();
+
+app.use(cors({
+  origin: "http://localhost:3001", // ou o endereço do frontend
+}));
 
 app.use(express.json());
 
