@@ -210,25 +210,7 @@ export default function Page() {
               <GlobeIcon size={16} />
               <span>Search</span>
             </AIInputButton>
-            <AIInputModelSelect value={model} onValueChange={setModel}>
-              <AIInputModelSelectTrigger>
-                <AIInputModelSelectValue />
-              </AIInputModelSelectTrigger>
-              <AIInputModelSelectContent>
-                {models.map((model) => (
-                  <AIInputModelSelectItem key={model.id} value={model.id}>
-                    <img
-                      alt={model.provider}
-                      className="flex items-center gap-2 min-w-[50px]"
-                      src={`https://img.logo.dev/${model.provider}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}`}
-                      width={16}
-                      height={16}
-                    />
-                    {model.name}
-                  </AIInputModelSelectItem>
-                ))}
-              </AIInputModelSelectContent>
-            </AIInputModelSelect>
+           
           </AIInputTools>
           <AIInputSubmit disabled={!text} status={status} />
         </AIInputToolbar>
