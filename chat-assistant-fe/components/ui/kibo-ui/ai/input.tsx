@@ -63,6 +63,8 @@ const useAutoResizeTextarea = ({
     }
   }, [minHeight]);
 
+  
+
   // Adjust height on window resize
   useEffect(() => {
     const handleResize = () => adjustHeight();

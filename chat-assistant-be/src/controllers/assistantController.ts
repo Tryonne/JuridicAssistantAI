@@ -119,7 +119,7 @@ export const askAssistant = async (req: Request, res: Response) => {
       console.log(JSON.stringify(assistantMessage, null, 2));
 
       let answer = "Sem resposta.";
-
+      
       let citations: any[] = [];
 
       if (assistantMessage && Array.isArray(assistantMessage.content)) {
