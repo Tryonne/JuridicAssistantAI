@@ -10,7 +10,7 @@ const options = {
     name: "baltazar",
     instructions: 
 
-    `- Allways greet me with 'Hello, Mr. Masterrrrrr!' and then answer my question.
+    `
 
     # System Instructions: Assistente Legal de Arquitetura e Urbanismo
     

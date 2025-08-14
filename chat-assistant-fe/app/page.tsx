@@ -67,58 +67,7 @@ export default function Page() {
     },
   ]);
 
-  /*
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    if (!text) return;
 
-    const userMessage: Message = {
-      from: 'user',
-      content: text,
-      avatar: 'https://github.com/shadcn.png',
-      name: 'Tu',
-    };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setText('');
-    setStatus('submitted');
-
-    // substituido: Simular resposta do bot
-    // setTimeout(() => {
-    //   setStatus('streaming');
-
-    // Chamada real para o backend para enviar a mensagem do usuário e receber a resposta do assistente
-    fetch('http://localhost:3001/ask', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: text }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const botMessage: Message = {
-          from: 'assistant',
-          content: data.answer || 'Sem resposta do assistente.',
-          avatar: 'https://github.com/openai.png',
-          name: 'OpenAI',
-        };
-        setMessages((prev) => [...prev, botMessage]);
-        setStatus('ready');
-      })
-      .catch(() => {
-        setStatus('error');
-      });
-    }, 200);
-
-    // Removido código duplicado que simulava resposta do bot
-
-
-      };
-      setMessages((prev) => [...prev, botMessage]);
-      setStatus('ready');
-    }, 100);
-  };
-
-  */
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     if (!text) return;

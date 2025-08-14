@@ -15,5 +15,6 @@ export function useIsMobile() {
     return () => mql.removeEventListener("change", onChange)
   }, [])
 
+  // Ensure the hook returns a boolean value 
   return !!isMobile
 }
