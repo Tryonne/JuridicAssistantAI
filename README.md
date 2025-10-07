@@ -6,6 +6,10 @@ README:
 
 ---
 
+![Vdeosemttulo-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3c1370ed-274a-49ee-9670-ba74df21e1e5)
+
+
+
 ## Overview
 
 The **Zumer Legal AI Assistant** is a web-based application that demonstrates how **Large Language Models (LLMs)** and **Retrieval-Augmented Generation (RAG)** can be used to improve access to **technical and regulatory documentation** — specifically, Portuguese legislation related to the architecture and construction sector (RJUE and RGEU).
@@ -70,4 +74,5 @@ github: https://github.com/Tryonne
 RUN BACKEND: npx ts-node src/app.ts
 
 RUN FRONTEND: npm run dev
+
 
