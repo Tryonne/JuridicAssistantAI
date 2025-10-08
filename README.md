@@ -20,10 +20,10 @@ The solution combines **Prompt Engineering**, **vector-based retrieval**, and **
 
 ## Core Objectives
 
--  Apply ***LLM-based reasoning** to regulatory documentation.  
--  Build a **retrieval-grounde*d question–answering system (RAG)**.  
+-  Apply **LLM-based reasoning** to regulatory documentation.  
+-  Build a **retrieval-grounded question–answering system (RAG)**.  
 -  Use **Prompt Engineering** to ensure consistent and citation-based responses.  
--  Format files to better use vector databases.
+-  Format files to better use **vector databases**.
 -  Design a **modular, full-stack web app** deployable in real environments.  
 -  Demonstrate technical and methodological alignment with regulated software workflows (traceability, transparency, evidence-based answers).
 
@@ -35,7 +35,7 @@ The solution combines **Prompt Engineering**, **vector-based retrieval**, and **
 |-------|-------------|----------|
 | **Frontend** | React.js, TypeScript, Shadcn-UI, Kibo-UI | Chat interface with modern component design |
 | **Backend** | Node.js, Express, TypeScript | API integration with Azure OpenAI |
-| **AI Engine** | Azure AI Foundry (GPT-4.0) | LLM orchestration, RAG and tool calling |
+| **AI Engine** | Azure AI Foundry (GPT-4.0,GPT-4.1,GPT-5...) | LLM orchestration, RAG and tool calling |
 | **Vector Store** | Azure File Search | Embedding-based document retrieval |
 | **Prompt Design** | Modular system & few-shot structure | Legal-context grounding and source citation |
 | **Development Tools** | Postman, Git, VSCode | Testing and debugging |
@@ -71,8 +71,11 @@ github: https://github.com/Tryonne
 
 ---
 
-RUN BACKEND: npx ts-node src/app.ts
+## TO RUN 
 
-RUN FRONTEND: npm run dev
+- RUN BACKEND: npx ts-node src/app.ts
+- RUN FRONTEND: npm run dev
 
-
+#### .env:
+- AZURE_OPENAI_KEY='#####'
+- AZURE_OPENAI_ENDPOINT='######'
