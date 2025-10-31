@@ -1,6 +1,6 @@
 
 
-# Legal AI Assistant  
+# Legal AI Assistant  -
 
 > *Retrieval-Augmented Legal Assistant built with Azure OpenAI, RAG and advanced Prompt Engineering.*
 
