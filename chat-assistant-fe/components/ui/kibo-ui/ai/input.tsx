@@ -106,10 +106,12 @@ export const AIInputTextarea = ({
   });
 
   const handleKeyDown: KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
-    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+
+    if (e.key === 'Enter' && !e.shiftKey ) {
       e.preventDefault();
       const form = e.currentTarget.form;
-      if (form) {
+      const hasText = e.currentTarget.value.trim().length > 0;
+      if (form && hasText) {
         form.requestSubmit();
       }
     }
@@ -191,6 +193,7 @@ export const AIInputButton = ({
 export type AIInputSubmitProps = ComponentProps<typeof Button> & {
   status?: 'submitted' | 'streaming' | 'ready' | 'error';
 };
+
 
 export const AIInputSubmit = ({
   className,

@@ -147,7 +147,7 @@ export default function Page() {
           onChange={(e) => setText(e.target.value)}
           placeholder="Escreve a tua mensagem..."
         />
-        <AIInputToolbar>
+        <AIInputToolbar>      
           <AIInputTools>
             <AIInputButton>
               <PlusIcon size={16} />
@@ -156,7 +156,7 @@ export default function Page() {
               <MicIcon size={16} />
             </AIInputButton>
             <AIInputButton>
-              <GlobeIcon size={16} />
+              <GlobeIcon size={16} /> 
               <span>Search</span>
             </AIInputButton>
            
