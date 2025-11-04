@@ -8,12 +8,12 @@ import { env } from "./config/env";
 const app = express();
 
 app.use(cors({
-  origin: env.FRONTEND_ORIGIN ?? "http://localhost:3001", // ou o endereço do frontend
+  origin: env.FRONTEND_ORIGIN ?? "http://localhost:3001", 
 }));
 
 app.use(express.json({ limit: '2mb'}));
 
-// Acess http://localhost:3001/health to check server status
+//  http://localhost:3001/health para ver o status do server 
 
 app.get('/health', (req, res) => 
   res.json({ status: 'ok' })

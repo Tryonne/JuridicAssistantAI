@@ -1,9 +1,10 @@
 import { getClient } from "../config/openai";
+import { env } from "../config/env";
 
-// Read optional configuration from environment
-const MODEL_ID = process.env.MODEL_ID || "gpt-4o-2";
-const VECTOR_STORE_ID = process.env.VECTOR_STORE_ID;
-let assistantId: string | undefined = process.env.ASSISTANT_ID;
+// Read configuration from validated env
+const MODEL_ID = env.MODEL_ID;
+const VECTOR_STORE_ID = env.VECTOR_STORE_ID;
+let assistantId: string | undefined = env.ASSISTANT_ID;
 
 const client = getClient();
 
@@ -113,4 +114,3 @@ export async function askAssistant(message: string, timeoutMs = 60_000): Promise
 
   return { answer, citations };
 }
-
