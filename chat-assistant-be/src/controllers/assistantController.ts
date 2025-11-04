@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getClient} from '../utils/openai';
+import { getClient} from '../config/openai';
 
 const assistantsClient = getClient();
 

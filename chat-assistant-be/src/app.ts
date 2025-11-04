@@ -1,20 +1,27 @@
 import express from "express";
 import assistantRoutes from "./routes/assistant";
-import dotenv from "dotenv";
 import cors from "cors";
-dotenv.config();
+import { env } from "./config/env";
+
+
 
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:3001", // ou o endereço do frontend
+  origin: env.FRONTEND_ORIGIN ?? "http://localhost:3001", // ou o endereço do frontend
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '2mb'}));
+
+// Acess http://localhost:3001/health to check server status
+
+app.get('/health', (req, res) => 
+  res.json({ status: 'ok' })
+);
 
 app.use("/assistant", assistantRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Assistant API running at http://localhost:${PORT}`);
-});
+
+app.listen(env.PORT, () => console.log(`http://localhost:${env.PORT}`));
+
+
